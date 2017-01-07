@@ -1,0 +1,2 @@
+C:\Users\domin_000\Documents\Visual Studio 2015\Projects\Metro_trip_planner\Metro_trip_planner\bin\Debug\Metro_trip_planner.exe.config
+C:\Users\domin_000\Documents\RedditChallenges\289[Intermed]_Metro_trip_planner\Metro_trip_planner\bin\Debug\Metro_trip_planner.exe.config
