@@ -1,0 +1,6 @@
+c:\users\domin_000\documents\visual studio 2015\Projects\TrollMaze\TrollMaze\bin\Debug\TrollMaze.exe.config
+c:\users\domin_000\documents\visual studio 2015\Projects\TrollMaze\TrollMaze\bin\Debug\TrollMaze.exe
+c:\users\domin_000\documents\visual studio 2015\Projects\TrollMaze\TrollMaze\bin\Debug\TrollMaze.pdb
+c:\users\domin_000\documents\visual studio 2015\Projects\TrollMaze\TrollMaze\obj\Debug\TrollMaze.csprojResolveAssemblyReference.cache
+c:\users\domin_000\documents\visual studio 2015\Projects\TrollMaze\TrollMaze\obj\Debug\TrollMaze.exe
+c:\users\domin_000\documents\visual studio 2015\Projects\TrollMaze\TrollMaze\obj\Debug\TrollMaze.pdb
