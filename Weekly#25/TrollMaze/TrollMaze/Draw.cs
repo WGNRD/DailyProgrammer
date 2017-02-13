@@ -13,15 +13,15 @@ namespace TrollMaze
         /// <summary>
         /// Draws the maze with the player on it
         /// </summary>
-        /// <param name="mz"> Get the maze </param>
+        /// <param name="Maze"> Get the maze </param>
         /// <param name="plyr"> Get the player</param>
         public static void DrawMaze(Maze mz, Player plyr)
         {
             int count = 0;
-            char [] chars = mz.field[plyr.locationY].ToCharArray();
+            char [] chars = Maze.field[plyr.locationY].ToCharArray();
             chars[plyr.locationX] = plyr.direction;
             
-            foreach (String line in mz.field)
+            foreach (String line in Maze.field)
             { 
                 if (count == plyr.locationY)
                 {
@@ -36,23 +36,28 @@ namespace TrollMaze
             }
         }
 
+        /// <summary>
+        /// Draws Maze with player and 1 Troll on it
+        /// </summary>
+        /// <param name="mz"></param>
+        /// <param name="plyr"></param>
+        /// <param name="trl"></param>
         public static void DrawMaze(Maze mz, Player plyr, Troll trl)
         {
             int count = 0;
-            char[] chars = mz.field[plyr.locationY].ToCharArray();
+            char[] chars = Maze.field[plyr.locationY].ToCharArray();
             chars[plyr.locationX] = plyr.direction;
 
-            char[] trlchars = mz.field[trl.coordY].ToCharArray();
+            char[] trlchars = Maze.field[trl.coordY].ToCharArray();
             trlchars[trl.coordX] = '@';
 
             if (plyr.locationY == trl.coordY)
             {
-
                 chars[trl.coordX] = '@';
                 chars[plyr.locationX] = plyr.direction;
             }
 
-            foreach (String line in mz.field)
+            foreach (String line in Maze.field)
             {
                 if (count == plyr.locationY)
                 {
@@ -70,5 +75,7 @@ namespace TrollMaze
                 count++;
             }
         }
+
+        // TODO: Make Draw func with takes a list of trolls
     }
 }

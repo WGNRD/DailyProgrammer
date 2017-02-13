@@ -8,9 +8,9 @@ namespace TrollMaze
 {
     class Maze
     {
-        public int height { get; set; }
-        public int width { get; set; }
-        public IList<String> field { get; set; }
+        public static int height { get; set; }
+        public static int width { get; set; }
+        public static IList<String> field { get; set; }
 
         public Maze()
         {

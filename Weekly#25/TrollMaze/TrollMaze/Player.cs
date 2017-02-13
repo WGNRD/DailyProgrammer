@@ -18,15 +18,15 @@ namespace TrollMaze
         /// Constructor
         /// </summary>
         /// <param name="maze"></param>
-        public Player(Maze maze)
+        public Player()
         {
-            int [] loc = Initialize(maze);
+            int [] loc = Initialize();
             locationX = loc[0];
             locationY = loc[1];
             direction = 'v';
         }
 
-        public static int [] Initialize(Maze input)
+        public static int [] Initialize()
         {
             Random rnd = new Random();
             int[] location = new int[2];
@@ -34,9 +34,9 @@ namespace TrollMaze
 
             do
             {
-                x = rnd.Next(1, input.width);
-                y = rnd.Next(1, input.height);
-            } while (input.field[y].ElementAt(x) != ' ');
+                x = rnd.Next(1, Maze.width);
+                y = rnd.Next(1, Maze.height);
+            } while (Maze.field[y].ElementAt(x) != ' ');
 
             location[0] = x;
             location[1] = y;
@@ -44,7 +44,7 @@ namespace TrollMaze
             return location;
         }
 
-        public void Move(ConsoleKey inputKey, Maze mz)
+        public void Move(ConsoleKey inputKey)
         {
             int tmpLocX = locationX;
             int tmpLocY = locationY;
@@ -54,22 +54,22 @@ namespace TrollMaze
                 case ConsoleKey.UpArrow:
                     direction = '^';
                     tmpLocY = locationY - 1;
-                    legalMove(mz, tmpLocX, tmpLocY);
+                    legalMove(tmpLocX, tmpLocY);
                     break;
                 case ConsoleKey.DownArrow:
                     direction = 'v';
                     tmpLocY = locationY + 1;
-                    legalMove(mz, tmpLocX, tmpLocY);
+                    legalMove(tmpLocX, tmpLocY);
                     break;
                 case ConsoleKey.RightArrow:
                     direction = '>';
                     tmpLocX = locationX + 1;
-                    legalMove(mz, tmpLocX, tmpLocY);
+                    legalMove(tmpLocX, tmpLocY);
                     break;
                 case ConsoleKey.LeftArrow:
                     direction = '<';
                     tmpLocX = locationX - 1;
-                    legalMove(mz, tmpLocX, tmpLocY);
+                    legalMove(tmpLocX, tmpLocY);
                     break;
             }
         }
@@ -77,12 +77,11 @@ namespace TrollMaze
         /// <summary>
         /// Sets the player to the new location if the move is legal
         /// </summary>
-        /// <param name="mz">Given Maze</param>
         /// <param name="locX">The X-coordinate the player would be</param>
         /// <param name="locY">The Y-coordinate the player would be</param>
-        private void legalMove(Maze mz, int locX, int locY)
+        private void legalMove(int locX, int locY)
         {
-            char field = mz.field[locY].ElementAt(locX);
+            char field = Maze.field[locY].ElementAt(locX);
             if (field == 'X')
             {
                 Draw.mazeExited = true;
@@ -92,7 +91,7 @@ namespace TrollMaze
                 locationY = locY;
             }else
             {
-                Push(mz, locX, locY);
+                Push(locX, locY);
             }
             
             
@@ -101,16 +100,15 @@ namespace TrollMaze
         /// <summary>
         /// Pushes wall 
         /// </summary>
-        /// <param name="mz">Given Maze</param>
         /// <param name="locX">The X-coordinate the player would be</param>
         /// <param name="locY">The Y-coordinate the player would be</param>
-        private void Push(Maze mz, int locX, int locY)
+        private void Push(int locX, int locY)
         {
             //TODO refactor Method
             char[] chars;
             char[] chars2;
 
-            chars = mz.field[locY].ToCharArray();
+            chars = Maze.field[locY].ToCharArray();
             
             switch (direction)
             {
@@ -120,8 +118,8 @@ namespace TrollMaze
                         chars[locX] = ' ';
                         chars[locX + 1] = '#';
 
-                        mz.field[locY] = new String(chars);
-                        legalMove(mz, locX, locY);
+                        Maze.field[locY] = new String(chars);
+                        legalMove(locX, locY);
                     }
                     break;
                 case '<':
@@ -130,35 +128,35 @@ namespace TrollMaze
                         chars[locX] = ' ';
                         chars[locX - 1] = '#';
 
-                        mz.field[locY] = new String(chars);
-                        legalMove(mz, locX, locY);
+                        Maze.field[locY] = new String(chars);
+                        legalMove(locX, locY);
                     }
                     break;
                 case 'v':
-                    chars2 = mz.field[locY+1].ToCharArray();
+                    chars2 = Maze.field[locY+1].ToCharArray();
                     if (chars2[locX] != '#')
                     {
                         chars[locX] = ' ';
                         chars2[locX] = '#';
 
-                        mz.field[locY] = new string(chars);
-                        mz.field[locY + 1] = new String(chars2);
+                        Maze.field[locY] = new string(chars);
+                        Maze.field[locY + 1] = new String(chars2);
 
-                        legalMove(mz, locX, locY);
+                        legalMove(locX, locY);
                     }
                     break;
                 case '^':
-                    chars2 = mz.field[locY-1].ToCharArray();
+                    chars2 = Maze.field[locY-1].ToCharArray();
 
                     if (chars2[locX] != '#')
                     {
                         chars[locX] = ' ';
                         chars2[locX] = '#';
 
-                        mz.field[locY] = new string(chars);
-                        mz.field[locY - 1] = new String(chars2);
+                        Maze.field[locY] = new string(chars);
+                        Maze.field[locY - 1] = new String(chars2);
 
-                        legalMove(mz, locX, locY);
+                        legalMove(locX, locY);
                     }
                     break;
             }

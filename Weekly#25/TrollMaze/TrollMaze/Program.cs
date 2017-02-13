@@ -13,8 +13,8 @@ namespace TrollMaze
         {
             #region properties
             Maze myMaze = new Maze();
-            Player plyr = new Player(myMaze);
-            Troll trl = new Troll(myMaze, plyr);
+            Player plyr = new Player();
+            Troll trl = new Troll(plyr);
             ConsoleKey pressed;
             #endregion
 
@@ -23,8 +23,8 @@ namespace TrollMaze
                 Draw.DrawMaze(myMaze, plyr, trl);
 
                 pressed = Console.ReadKey().Key;
-                plyr.Move(pressed, myMaze);
-                trl.Move(myMaze, plyr.locationX, plyr.locationY);
+                plyr.Move(pressed);
+                trl.Move(plyr.locationX, plyr.locationY);
 
                 Console.Clear();
             } while (!Draw.mazeExited);
