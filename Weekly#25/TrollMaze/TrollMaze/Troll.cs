@@ -43,11 +43,12 @@ namespace TrollMaze
 
             // Initialize the end coordinate
             path.Add(new Tuple<int, int, int>(targetX, targetY, 0));
+
             // Go through every element in path
-            for (int i = 1; i <= path.Count; i++)
+            for (int i = 0; i < path.Count; i++)
             {
-                tmpX = path[path.Count - 1].Item1;
-                tmpY = path[path.Count - 1].Item2;
+                tmpX = path[i].Item1;
+                tmpY = path[i].Item2;
 
                 // Create a list of the for adjacent cells
                 tmpPath.Add(new Tuple<int, int, int>(tmpX + 1, tmpY, i));
@@ -55,39 +56,44 @@ namespace TrollMaze
                 tmpPath.Add(new Tuple<int, int, int>(tmpX, tmpY + 1, i));
                 tmpPath.Add(new Tuple<int, int, int>(tmpX, tmpY - 1, i));
 
-                for (int j = tmpPath.Count - 1; j >= 0; j--)
+                foreach (var step in tmpPath)
                 {
-
                     //If there is a element in list with the same coordinates but with a smaller counter
-                    
-                    //var x = tmpPath.FindAll(p => p.Item1.Equals()
-                    //    & p.Item2.Equals(path[j].Item2) & p.Item3 <= path[j].Item3);
 
-                    //tmpPath = tmpPath.Except(x).ToList();
-
-                    //tmpPath.RemoveAll(p => p.Item1.Equals(tmpPath[j].Item1)
-                    //    & p.Item2.Equals(tmpPath[j].Item2) & p.Item3 <= tmpPath[j].Item3);
-
-                    //If Cell is wall
-                    try { 
-                    if (Maze.field[tmpPath[j].Item2].ElementAt(tmpPath[j].Item1) == '#')
+                    if (tmpPath.Count > 0)
                     {
-                        tmpPath.RemoveAt(tmpPath.Count -1);
+                        var x = path.FindAll(p => p.Item1.Equals(step.Item1)
+                            & p.Item2.Equals(step.Item2)
+                            & p.Item3 <= step.Item3);
                     }
+
+                    //var test = x.FindAll(t => t.Item1 == x.Select(d => d.Item1).First());
+
+                    var y = tmpPath.FindAll(
+                            t => t.Item1.Equals(path.Select(p => p.Item1).First())
+                            && t.Item2.Equals(path.Select(p => p.Item2).First() ));
+
+                    tmpPath = tmpPath.Except(y).ToList();
+                    
+                    //If Cell is wall
+                    try
+                    {
+                        if (Maze.field[step.Item2].ElementAt(step.Item1) == '#')
+                        {
+                            tmpPath.Remove(step);
+                        }
                     }
                     catch (Exception)
                     {
-                        tmpPath.RemoveAt(tmpPath.Count - 1);
+                        tmpPath.Remove(step);
                     }
-
                 }
+
                 // Add all remaining cells
                 path.AddRange(tmpPath);
                 tmpPath.Clear();
 
-                //if (path.Find(p => p.Item1.Equals(coordX)
-                //    & p.Item2.Equals(coordY)) == null)
-                //    break;
+
                 if (path.Find(p => p.Item1.Equals(coordX) & p.Item2.Equals(coordY)) != null)
                 {
                     break;
@@ -95,9 +101,40 @@ namespace TrollMaze
 
             }
 
-            coordX = path[path.Count -1].Item1;
-            coordY = path[path.Count - 1].Item2;
+
+            // Go to the nearby cell with the lowest number
+            path.Where(p => p.Item1 == coordX +1 || p.Item1 == coordX -1);
+            
+
+            //var min = path.min(p => p.Item3);
+
+            foreach (int[] neighbour in adjacent(coordX,coordY))
+            {
+                int min=100000;
+                var my = path.Where(p => p.Item1 == neighbour[0] & p.Item2 == neighbour[1]).Select(p=>p);
+
+                if (min < my.Select(p=>p.Item3).First())
+                {
+                    coordX = my.Select(p => p.Item1).First();
+                    coordY = my.Select(p => p.Item2).First();
+
+                    min = my.Select(p => p.Item3).First();
+                }
+            }
+            
+            path.Clear();
         }
-        
+
+        private List<int[]> adjacent(int xcoord, int ycoord)
+        {
+            List<int[]> result = new List<int[]>();
+
+            result.Add(new int[2] { xcoord + 1, ycoord});
+            result.Add(new int[2] { xcoord, ycoord + 1});
+            result.Add(new int[2] { xcoord, ycoord - 1});
+            result.Add(new int[2] { xcoord - 1, ycoord});
+
+            return result;
+        }        
     }
 }
