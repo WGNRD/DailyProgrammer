@@ -48,6 +48,7 @@ namespace TrollMaze
             char[] chars = Maze.field[plyr.locationY].ToCharArray();
             chars[plyr.locationX] = plyr.direction;
 
+
             char[] trlchars = Maze.field[trl.coordY].ToCharArray();
             trlchars[trl.coordX] = '@';
 
