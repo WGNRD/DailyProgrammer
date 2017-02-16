@@ -30,33 +30,33 @@ namespace TrollMaze
             IList<String> mazeField = new List<String>();
 
 
-            mazeField.Add("#   #");
-            mazeField.Add("# # #");
-            mazeField.Add("#   #");
+            //mazeField.Add("#   #");
+            //mazeField.Add("# # #");
+            //mazeField.Add("#   #");
 
-            //mazeField.Add("#####################################");
-            //mazeField.Add("# #       #       #     #         # #");
-            //mazeField.Add("# # ##### # ### ##### ### ### ### # #");
-            //mazeField.Add("#       #   # #     #     # # #   # #");
-            //mazeField.Add("##### # ##### ##### ### # # # ##### #");
-            //mazeField.Add("#   # #       #     # # # # #     # #");
-            //mazeField.Add("# # ####### # # ##### ### # ##### # #");
-            //mazeField.Add("# #       # # #   #     #     #   # #");
-            //mazeField.Add("# ####### ### ### # ### ##### # ### #");
-            //mazeField.Add("#     #   # #   # #   #     # #     #");
-            //mazeField.Add("# ### ### # ### # ##### # # # #######");
-            //mazeField.Add("#   #   # # #   #   #   # # #   #   #");
-            //mazeField.Add("####### # # # ##### # ### # ### ### #");
-            //mazeField.Add("#     # #     #   # #   # #   #     #");
-            //mazeField.Add("# ### # ##### ### # ### ### ####### #");
-            //mazeField.Add("# #   #     #     #   # # #       # #");
-            //mazeField.Add("# # ##### # ### ##### # # ####### # #");
-            //mazeField.Add("# #     # # # # #     #       # #   #");
-            //mazeField.Add("# ##### # # # ### ##### ##### # #####");
-            //mazeField.Add("# #   # # #     #     # #   #       #");
-            //mazeField.Add("# # ### ### ### ##### ### # ##### # #");
-            //mazeField.Add("# #         #     #       #       # #");
-            //mazeField.Add("#X###################################");
+            mazeField.Add("#####################################");
+            mazeField.Add("# #       #       #     #         # #");
+            mazeField.Add("# # ##### # ### ##### ### ### ### # #");
+            mazeField.Add("#       #   # #     #     # # #   # #");
+            mazeField.Add("##### # ##### ##### ### # # # ##### #");
+            mazeField.Add("#   # #       #     # # # # #     # #");
+            mazeField.Add("# # ####### # # ##### ### # ##### # #");
+            mazeField.Add("# #       # # #   #     #     #   # #");
+            mazeField.Add("# ####### ### ### # ### ##### # ### #");
+            mazeField.Add("#     #   # #   # #   #     # #     #");
+            mazeField.Add("# ### ### # ### # ##### # # # #######");
+            mazeField.Add("#   #   # # #   #   #   # # #   #   #");
+            mazeField.Add("####### # # # ##### # ### # ### ### #");
+            mazeField.Add("#     # #     #   # #   # #   #     #");
+            mazeField.Add("# ### # ##### ### # ### ### ####### #");
+            mazeField.Add("# #   #     #     #   # # #       # #");
+            mazeField.Add("# # ##### # ### ##### # # ####### # #");
+            mazeField.Add("# #     # # # # #     #       # #   #");
+            mazeField.Add("# ##### # # # ### ##### ##### # #####");
+            mazeField.Add("# #   # # #     #     # #   #       #");
+            mazeField.Add("# # ### ### ### ##### ### # ##### # #");
+            mazeField.Add("# #         #     #       #       # #");
+            mazeField.Add("#X###################################");
 
             return mazeField;
         }

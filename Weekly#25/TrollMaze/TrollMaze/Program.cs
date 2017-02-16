@@ -23,8 +23,11 @@ namespace TrollMaze
                 Draw.DrawMaze(myMaze, plyr, trl);
 
                 pressed = Console.ReadKey().Key;
+                if (trl.alive)
+                {
+                    trl.Move(plyr.locationX, plyr.locationY);
+                }
                 plyr.Move(pressed);
-                trl.Move(plyr.locationX, plyr.locationY);
 
                 Console.Clear();
             } while (!Draw.mazeExited);

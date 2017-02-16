@@ -1,12 +1,1 @@
-c:\users\domin_000\documents\visual studio 2015\Projects\TrollMaze\TrollMaze\bin\Debug\TrollMaze.exe.config
-c:\users\domin_000\documents\visual studio 2015\Projects\TrollMaze\TrollMaze\bin\Debug\TrollMaze.exe
-c:\users\domin_000\documents\visual studio 2015\Projects\TrollMaze\TrollMaze\bin\Debug\TrollMaze.pdb
-c:\users\domin_000\documents\visual studio 2015\Projects\TrollMaze\TrollMaze\obj\Debug\TrollMaze.csprojResolveAssemblyReference.cache
-c:\users\domin_000\documents\visual studio 2015\Projects\TrollMaze\TrollMaze\obj\Debug\TrollMaze.exe
-c:\users\domin_000\documents\visual studio 2015\Projects\TrollMaze\TrollMaze\obj\Debug\TrollMaze.pdb
 C:\Users\Wagner\Source\Repos\DailyProgrammer\Weekly#25\TrollMaze\TrollMaze\bin\Debug\TrollMaze.exe.config
-C:\Users\Wagner\Source\Repos\DailyProgrammer\Weekly#25\TrollMaze\TrollMaze\obj\Debug\TrollMaze.exe
-C:\Users\Wagner\Source\Repos\DailyProgrammer\Weekly#25\TrollMaze\TrollMaze\obj\Debug\TrollMaze.pdb
-C:\Users\Wagner\Source\Repos\DailyProgrammer\Weekly#25\TrollMaze\TrollMaze\obj\Debug\TrollMaze.csprojResolveAssemblyReference.cache
-C:\Users\Wagner\Source\Repos\DailyProgrammer\Weekly#25\TrollMaze\TrollMaze\bin\Debug\TrollMaze.exe
-C:\Users\Wagner\Source\Repos\DailyProgrammer\Weekly#25\TrollMaze\TrollMaze\bin\Debug\TrollMaze.pdb

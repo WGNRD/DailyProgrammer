@@ -34,10 +34,10 @@ namespace TrollMaze
 
             do
             {
-                //x = rnd.Next(1, Maze.width);
-                //y = rnd.Next(1, Maze.height);
-                x = 3;
-                y = 2;
+                x = rnd.Next(1, Maze.width);
+                y = rnd.Next(1, Maze.height);
+                //x = 3;
+                //y = 2;
             } while (Maze.field[y].ElementAt(x) != ' ');
 
             location[0] = x;
