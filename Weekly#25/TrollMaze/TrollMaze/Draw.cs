@@ -78,5 +78,33 @@ namespace TrollMaze
         }
 
         // TODO: Make Draw func with takes a list of trolls
+
+        public static void DrawMaze(Maze mz, Player plyr, List<Troll> trls)
+        {
+            List<char[]> trlcharList = new List<char[]>();
+            List<String> temp;
+            int count = 0;
+            bool playerInCharList = false;
+            char[] chars = null;
+            
+
+            foreach (String line in Maze.field)
+            {
+                if (count == plyr.locationY && !playerInCharList)
+                {
+                    Console.WriteLine(new string(chars));
+                }else if (mytrls.Exists(t => t.coordY == count))
+                {
+                    Console.WriteLine(new string(trlcharList[0]));
+                    trlcharList.RemoveAt(0);
+                }
+                else
+                {
+                    Console.WriteLine(line);
+                }
+
+                count++;
+            }
+        }
     }
 }

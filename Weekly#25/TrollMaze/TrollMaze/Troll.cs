@@ -12,18 +12,17 @@ namespace TrollMaze
         public int coordY { get; set; }
         public bool alive { get; set; }
 
-        public Troll(Player plyr)
+        public Troll(Player plyr, Random rnd)
         {
             alive = true;
-            // TODO: Don't let troll start where player or other troll is
-            Random rnd = new Random();
+
             do
             {
-                //coordX = rnd.Next(0, Maze.width);
-                //coordY = rnd.Next(0, Maze.height);
+                coordX = rnd.Next(0, Maze.width);
+                coordY = rnd.Next(0, Maze.height);
                 
-                coordX = 1;
-                coordY = 0;
+                //coordX = 1;
+                //coordY = 0;
             } while ((Maze.field[coordY].ElementAt(coordX) != ' ' )&& (coordX == plyr.locationX));
         }
 
@@ -108,7 +107,7 @@ namespace TrollMaze
             try
             {
                 tmpPath.OrderBy(p => p.Item3).First();
-            }catch(Exception ex)
+            }catch(Exception)
             {
                 tmpPath.Add(new Tuple<int, int, int>(coordX, coordY, 0));
             }
