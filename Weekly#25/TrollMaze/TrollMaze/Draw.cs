@@ -81,30 +81,29 @@ namespace TrollMaze
 
         public static void DrawMaze(Maze mz, Player plyr, List<Troll> trls)
         {
-            List<char[]> trlcharList = new List<char[]>();
-            List<String> temp;
-            int count = 0;
-            bool playerInCharList = false;
+            List<String> tempmz = new List<string>();
             char[] chars = null;
-            
 
-            foreach (String line in Maze.field)
+            tempmz.AddRange(Maze.field);
+
+           // var mytrls = trls.OrderBy(t => t.coordY);
+
+            chars = tempmz[plyr.locationY].ToCharArray();
+            chars[plyr.locationX] = plyr.direction;
+            tempmz[plyr.locationY] = new string(chars);
+
+            foreach (Troll trl in trls)
             {
-                if (count == plyr.locationY && !playerInCharList)
-                {
-                    Console.WriteLine(new string(chars));
-                }else if (mytrls.Exists(t => t.coordY == count))
-                {
-                    Console.WriteLine(new string(trlcharList[0]));
-                    trlcharList.RemoveAt(0);
-                }
-                else
-                {
-                    Console.WriteLine(line);
-                }
+                chars = tempmz[trl.coordY].ToCharArray();
+                chars[trl.coordX] = '@';
+                tempmz[trl.coordY] = new string(chars);
+            }
 
-                count++;
+            foreach (String line in tempmz)
+            {
+                Console.WriteLine(line);
             }
         }
     }
 }
+

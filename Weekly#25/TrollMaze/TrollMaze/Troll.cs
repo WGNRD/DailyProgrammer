@@ -26,6 +26,11 @@ namespace TrollMaze
             } while ((Maze.field[coordY].ElementAt(coordX) != ' ' )&& (coordX == plyr.locationX));
         }
 
+        /// <summary>
+        /// If the player is in the same location as the troll, exit the game. Else find the best path to the player
+        /// </summary>
+        /// <param name="targetX">X-Coordinate of the player</param>
+        /// <param name="targetY">Y-Coordinate of the player</param>
         public void Move(int targetX, int targetY)
         {
             if (targetX == coordX && targetY == coordY)
@@ -36,6 +41,11 @@ namespace TrollMaze
             
         }
 
+        /// <summary>
+        /// Find the shortest Path to the player. (Sample algorithm)
+        /// </summary>
+        /// <param name="targetX">X-Coordinate of the player</param>
+        /// <param name="targetY">Y-Coordinate of the player</param>
         private void findPath(int targetX, int targetY)
         {
            
@@ -51,12 +61,11 @@ namespace TrollMaze
             {
                 tmpX = path[i - 1].Item1;
                 tmpY = path[i - 1].Item2;
-
-                // Create a list of the for adjacent cells
-                tmpPath.Add(new Tuple<int, int, int>(tmpX + 1, tmpY, i));
-                tmpPath.Add(new Tuple<int, int, int>(tmpX - 1, tmpY, i));
-                tmpPath.Add(new Tuple<int, int, int>(tmpX, tmpY + 1, i));
-                tmpPath.Add(new Tuple<int, int, int>(tmpX, tmpY - 1, i));
+               
+                foreach (var neighbour in getAdjecentCells(tmpX, tmpY))
+                {
+                    tmpPath.Add(new Tuple<int, int, int>(neighbour.Item1, neighbour.Item2, i));
+                }
                 
                 foreach (var step in tmpPath)
                 {
@@ -77,7 +86,7 @@ namespace TrollMaze
                         {
                             tmpPath.Remove(step);
                         }
-                    }
+                    } //If the Cell is out of bounds
                     catch (Exception)
                     {
                         tmpPath.Remove(step);
@@ -88,6 +97,7 @@ namespace TrollMaze
                 path.AddRange(tmpPath);
                 tmpPath.Clear();
 
+                // If an Item in the path list is target, a path is found so end the pathfinding 
                 if (path.Find(p => p.Item1.Equals(coordX) & p.Item2.Equals(coordY)) != null)
                 {
                     break;
@@ -95,7 +105,7 @@ namespace TrollMaze
 
             }
 
-            var adja = adjacent(coordX, coordY);
+            var adja = getAdjecentCells(coordX, coordY);
             
 
             tmpPath = (from pfad in path
@@ -104,21 +114,29 @@ namespace TrollMaze
                     where neig.Item2 == pfad.Item2
                     select pfad).ToList();
 
+            // Get the adjacent cell with the lowest Item3 property
             try
             {
                 tmpPath.OrderBy(p => p.Item3).First();
-            }catch(Exception)
+            }catch(Exception) // Stay dont go anywhere if no path is found
             {
                 tmpPath.Add(new Tuple<int, int, int>(coordX, coordY, 0));
             }
 
+            // Set the Coordinate to the found cell
             coordX = tmpPath[0].Item1;
             coordY = tmpPath[0].Item2;
 
             path.Clear();
         }
 
-        private List<Tuple<int,int>> adjacent(int xcoord, int ycoord)
+        /// <summary>
+        /// Gets the adjecent Cell of a given cell
+        /// </summary>
+        /// <param name="xcoord">X-Coordinate of the Cell</param>
+        /// <param name="ycoord">Y-Coordinate of the Cell</param>
+        /// <returns>List with X & Y Coordiantes of the Cells</returns>
+        private List<Tuple<int,int>> getAdjecentCells(int xcoord, int ycoord)
         {
             List<Tuple<int, int>> result = new List<Tuple<int, int>>();
 
