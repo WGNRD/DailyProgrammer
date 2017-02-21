@@ -111,56 +111,61 @@ namespace TrollMaze
             char[] chars2;
 
             chars = Maze.field[locY].ToCharArray();
-            
-            switch (direction)
+            try
             {
-                case '>':
-                    if (chars[locX + 1] != '#')
-                    {
-                        chars[locX] = ' ';
-                        chars[locX + 1] = '#';
+                switch (direction)
+                {
+                    case '>':
+                        if (chars[locX + 1] != '#')
+                        {
+                            chars[locX] = ' ';
+                            chars[locX + 1] = '#';
 
-                        Maze.field[locY] = new String(chars);
-                        legalMove(locX, locY);
-                    }
-                    break;
-                case '<':
-                    if (chars[locX - 1] != '#')
-                    {
-                        chars[locX] = ' ';
-                        chars[locX - 1] = '#';
+                            Maze.field[locY] = new String(chars);
+                            legalMove(locX, locY);
+                        }
+                        break;
+                    case '<':
+                        if (chars[locX - 1] != '#')
+                        {
+                            chars[locX] = ' ';
+                            chars[locX - 1] = '#';
 
-                        Maze.field[locY] = new String(chars);
-                        legalMove(locX, locY);
-                    }
-                    break;
-                case 'v':
-                    chars2 = Maze.field[locY+1].ToCharArray();
-                    if (chars2[locX] != '#')
-                    {
-                        chars[locX] = ' ';
-                        chars2[locX] = '#';
+                            Maze.field[locY] = new String(chars);
+                            legalMove(locX, locY);
+                        }
+                        break;
+                    case 'v':
+                        chars2 = Maze.field[locY + 1].ToCharArray();
+                        if (chars2[locX] != '#')
+                        {
+                            chars[locX] = ' ';
+                            chars2[locX] = '#';
 
-                        Maze.field[locY] = new string(chars);
-                        Maze.field[locY + 1] = new String(chars2);
+                            Maze.field[locY] = new string(chars);
+                            Maze.field[locY + 1] = new String(chars2);
 
-                        legalMove(locX, locY);
-                    }
-                    break;
-                case '^':
-                    chars2 = Maze.field[locY-1].ToCharArray();
+                            legalMove(locX, locY);
+                        }
+                        break;
+                    case '^':
+                        chars2 = Maze.field[locY - 1].ToCharArray();
 
-                    if (chars2[locX] != '#')
-                    {
-                        chars[locX] = ' ';
-                        chars2[locX] = '#';
+                        if (chars2[locX] != '#')
+                        {
+                            chars[locX] = ' ';
+                            chars2[locX] = '#';
 
-                        Maze.field[locY] = new string(chars);
-                        Maze.field[locY - 1] = new String(chars2);
+                            Maze.field[locY] = new string(chars);
+                            Maze.field[locY - 1] = new String(chars2);
 
-                        legalMove(locX, locY);
-                    }
-                    break;
+                            legalMove(locX, locY);
+                        }
+                        break;
+                }
+            }catch (Exception) // If Player tries to get out of bounds
+            {
+                return;
             }
         }
     }
