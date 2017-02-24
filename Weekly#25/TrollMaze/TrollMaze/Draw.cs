@@ -85,7 +85,7 @@ namespace TrollMaze
         /// <param name="mz"></param>
         /// <param name="plyr"></param>
         /// <param name="trls"></param>
-        public static void DrawMaze(Maze mz, Player plyr, List<Troll> trls)
+        public static void DrawMaze(Player plyr, List<Troll> trls)
         {
             List<String> tempmz = new List<string>();
             char[] chars = null;
@@ -103,6 +103,55 @@ namespace TrollMaze
                 chars = tempmz[trl.coordY].ToCharArray();
                 chars[trl.coordX] = trl.representation;
                 tempmz[trl.coordY] = new string(chars);
+            }
+
+            foreach (String line in tempmz)
+            {
+                Console.WriteLine(line);
+            }
+        }
+
+        public static void DrawMazeLimitedSight (Player plyr, List<Troll> trls, int playerSight)
+        {
+            List<String> tempmz = new List<string>();
+            char[] chars = null;
+
+            tempmz.AddRange(Maze.field);
+
+            // var mytrls = trls.OrderBy(t => t.coordY);
+
+            chars = tempmz[plyr.locationY].ToCharArray();
+            chars[plyr.locationX] = plyr.direction;
+            tempmz[plyr.locationY] = new string(chars);
+
+            foreach (Troll trl in trls)
+            {
+                chars = tempmz[trl.coordY].ToCharArray();
+                chars[trl.coordX] = trl.representation;
+                tempmz[trl.coordY] = new string(chars);
+            }
+            // +/- 3 Lines and Rows
+
+            for (int lineIndex = 0; lineIndex < Maze.height; lineIndex++)
+            {
+                chars = tempmz[lineIndex].ToCharArray();
+
+                for (int rowIndex = 0; rowIndex < Maze.width; rowIndex++)
+                {
+                    if (rowIndex >= plyr.locationX + playerSight || rowIndex <= plyr.locationX - playerSight)
+                    {
+                        chars[rowIndex] = ' ';
+                    }
+
+                }
+                tempmz[lineIndex] = new string(chars);
+                // Cut out all the lines
+                if (lineIndex >= plyr.locationY + playerSight || lineIndex <= plyr.locationY - playerSight)
+                {
+                    tempmz[lineIndex] = "";
+                }
+
+                
             }
 
             foreach (String line in tempmz)

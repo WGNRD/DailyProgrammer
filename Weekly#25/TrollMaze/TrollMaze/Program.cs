@@ -34,7 +34,7 @@ namespace TrollMaze
                     trl.Move(plyr.locationX, plyr.locationY);
                 }
 
-                Draw.DrawMaze(myMaze, plyr, trls);
+                Draw.DrawMazeLimitedSight(plyr, trls, 5);
 
                 pressed = Console.ReadKey().Key;
                 
