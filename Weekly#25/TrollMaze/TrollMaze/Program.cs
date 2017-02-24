@@ -20,23 +20,23 @@ namespace TrollMaze
             Random rnd = new Random();
             ConsoleKey pressed;
             #endregion
+
             for (int i = 0; i < 3; i++)
             {
                 trls.Add(new Troll(plyr, rnd));
+                
             }
 
             do
             {
-                Draw.DrawMaze(myMaze, plyr, trls);
-
-                pressed = Console.ReadKey().Key;
-
                 foreach (Troll trl in trls)
                 {
                     trl.Move(plyr.locationX, plyr.locationY);
-
                 }
 
+                Draw.DrawMaze(myMaze, plyr, trls);
+
+                pressed = Console.ReadKey().Key;
                 
                 plyr.Move(pressed);
 

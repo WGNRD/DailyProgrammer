@@ -77,8 +77,14 @@ namespace TrollMaze
             }
         }
 
-        // TODO: Make Draw func with takes a list of trolls
 
+
+        /// <summary>
+        /// Draws Maze with player and a list of Trolls on it
+        /// </summary>
+        /// <param name="mz"></param>
+        /// <param name="plyr"></param>
+        /// <param name="trls"></param>
         public static void DrawMaze(Maze mz, Player plyr, List<Troll> trls)
         {
             List<String> tempmz = new List<string>();
@@ -95,7 +101,7 @@ namespace TrollMaze
             foreach (Troll trl in trls)
             {
                 chars = tempmz[trl.coordY].ToCharArray();
-                chars[trl.coordX] = '@';
+                chars[trl.coordX] = trl.representation;
                 tempmz[trl.coordY] = new string(chars);
             }
 

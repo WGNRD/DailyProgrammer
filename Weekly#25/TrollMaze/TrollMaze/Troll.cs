@@ -10,20 +10,17 @@ namespace TrollMaze
     {
         public int coordX { get; set; }
         public int coordY { get; set; }
-        public bool alive { get; set; }
+        public char representation { get; set; }
 
         public Troll(Player plyr, Random rnd)
         {
-            alive = true;
-
+            representation = '@';
             do
             {
                 coordX = rnd.Next(0, Maze.width);
                 coordY = rnd.Next(0, Maze.height);
-                
-                //coordX = 1;
-                //coordY = 0;
-            } while ((Maze.field[coordY].ElementAt(coordX) != ' ' )&& (coordX == plyr.locationX));
+
+            } while ((Maze.field[coordY].ElementAt(coordX) != ' ' ));
         }
 
         /// <summary>
@@ -37,8 +34,16 @@ namespace TrollMaze
             {
                 Draw.mazeExited = true;
             }
-            findPath(targetX, targetY);
-            
+            if (isKilled())
+            {
+                return;
+            }
+            else
+            {
+                findPath(targetX, targetY);
+
+            }
+
         }
 
         /// <summary>
@@ -62,7 +67,7 @@ namespace TrollMaze
                 tmpX = path[i - 1].Item1;
                 tmpY = path[i - 1].Item2;
                
-                foreach (var neighbour in getAdjecentCells(tmpX, tmpY))
+                foreach (var neighbour in getAdjacent(tmpX, tmpY))
                 {
                     tmpPath.Add(new Tuple<int, int, int>(neighbour.Item1, neighbour.Item2, i));
                 }
@@ -105,7 +110,7 @@ namespace TrollMaze
 
             }
 
-            var adja = getAdjecentCells(coordX, coordY);
+            var adja = getAdjacent(coordX, coordY);
             
 
             tmpPath = (from pfad in path
@@ -131,12 +136,12 @@ namespace TrollMaze
         }
 
         /// <summary>
-        /// Gets the adjecent Cell of a given cell
+        /// Gets the adjacent Cell of a given cell
         /// </summary>
         /// <param name="xcoord">X-Coordinate of the Cell</param>
         /// <param name="ycoord">Y-Coordinate of the Cell</param>
         /// <returns>List with X & Y Coordiantes of the Cells</returns>
-        private List<Tuple<int,int>> getAdjecentCells(int xcoord, int ycoord)
+        private List<Tuple<int,int>> getAdjacent(int xcoord, int ycoord)
         {
             List<Tuple<int, int>> result = new List<Tuple<int, int>>();
 
@@ -148,12 +153,17 @@ namespace TrollMaze
             return result;
         }
         
+        /// <summary>
+        /// Checks if Troll is killed
+        /// </summary>
+        /// <returns>true if troll is killed</returns>
         public bool isKilled()
         {
             var killed = false;
 
-            if (Maze.field[coordX].ElementAt(coordY) == '#')
+            if (Maze.field[coordY].ElementAt(coordX) == '#')
             {
+                representation = '%';
                 killed = true;
             }
 
