@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TrollMaze
 {
-    class Program
+    internal class Program
     {
-
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             #region properties
+
             Maze myMaze = new Maze();
             Player plyr = new Player();
             //Troll trl = new Troll(plyr);
@@ -19,12 +16,12 @@ namespace TrollMaze
 
             Random rnd = new Random();
             ConsoleKey pressed;
-            #endregion
+
+            #endregion properties
 
             for (int i = 0; i < 3; i++)
             {
                 trls.Add(new Troll(plyr, rnd));
-                
             }
 
             do
@@ -37,7 +34,7 @@ namespace TrollMaze
                 Draw.DrawMazeLimitedSight(plyr, trls, 5);
 
                 pressed = Console.ReadKey().Key;
-                
+
                 plyr.Move(pressed);
 
                 Console.Clear();

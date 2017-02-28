@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TrollMaze
 {
-    static class Draw
+    internal static class Draw
     {
         // TODO write in static extra-class
         public static bool mazeExited = false;
+
         /// <summary>
         /// Draws the maze with the player on it
         /// </summary>
@@ -18,11 +16,11 @@ namespace TrollMaze
         public static void DrawMaze(Maze mz, Player plyr)
         {
             int count = 0;
-            char [] chars = Maze.field[plyr.locationY].ToCharArray();
+            char[] chars = Maze.field[plyr.locationY].ToCharArray();
             chars[plyr.locationX] = plyr.direction;
-            
+
             foreach (String line in Maze.field)
-            { 
+            {
                 if (count == plyr.locationY)
                 {
                     Console.WriteLine(new string(chars));
@@ -47,7 +45,6 @@ namespace TrollMaze
             int count = 0;
             char[] chars = Maze.field[plyr.locationY].ToCharArray();
             chars[plyr.locationX] = plyr.direction;
-
 
             char[] trlchars = Maze.field[trl.coordY].ToCharArray();
             trlchars[trl.coordX] = '@';
@@ -77,8 +74,6 @@ namespace TrollMaze
             }
         }
 
-
-
         /// <summary>
         /// Draws Maze with player and a list of Trolls on it
         /// </summary>
@@ -92,7 +87,7 @@ namespace TrollMaze
 
             tempmz.AddRange(Maze.field);
 
-           // var mytrls = trls.OrderBy(t => t.coordY);
+            // var mytrls = trls.OrderBy(t => t.coordY);
 
             chars = tempmz[plyr.locationY].ToCharArray();
             chars[plyr.locationX] = plyr.direction;
@@ -111,7 +106,7 @@ namespace TrollMaze
             }
         }
 
-        public static void DrawMazeLimitedSight (Player plyr, List<Troll> trls, int playerSight)
+        public static void DrawMazeLimitedSight(Player plyr, List<Troll> trls, int playerSight)
         {
             List<String> tempmz = new List<string>();
             char[] chars = null;
@@ -142,7 +137,6 @@ namespace TrollMaze
                     {
                         chars[rowIndex] = ' ';
                     }
-
                 }
                 tempmz[lineIndex] = new string(chars);
                 // Cut out all the lines
@@ -150,8 +144,6 @@ namespace TrollMaze
                 {
                     tempmz[lineIndex] = "";
                 }
-
-                
             }
 
             foreach (String line in tempmz)
@@ -161,4 +153,3 @@ namespace TrollMaze
         }
     }
 }
-

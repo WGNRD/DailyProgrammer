@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TrollMaze
 {
-    class Player
+    internal class Player
     {
-
         public char direction { get; set; }
         public int locationX { get; set; }
         public int locationY { get; set; }
-
 
         /// <summary>
         /// Constructor
@@ -20,17 +15,17 @@ namespace TrollMaze
         /// <param name="maze"></param>
         public Player()
         {
-            int [] loc = Initialize();
+            int[] loc = Initialize();
             locationX = loc[0];
             locationY = loc[1];
             direction = 'v';
         }
 
-        public static int [] Initialize()
+        public static int[] Initialize()
         {
             Random rnd = new Random();
             int[] location = new int[2];
-            int x,y;
+            int x, y;
 
             do
             {
@@ -58,16 +53,19 @@ namespace TrollMaze
                     tmpLocY = locationY - 1;
                     legalMove(tmpLocX, tmpLocY);
                     break;
+
                 case ConsoleKey.DownArrow:
                     direction = 'v';
                     tmpLocY = locationY + 1;
                     legalMove(tmpLocX, tmpLocY);
                     break;
+
                 case ConsoleKey.RightArrow:
                     direction = '>';
                     tmpLocX = locationX + 1;
                     legalMove(tmpLocX, tmpLocY);
                     break;
+
                 case ConsoleKey.LeftArrow:
                     direction = '<';
                     tmpLocX = locationX - 1;
@@ -87,20 +85,20 @@ namespace TrollMaze
             if (field == 'X')
             {
                 Draw.mazeExited = true;
-            }else if (field != '#')
+            }
+            else if (field != '#')
             {
                 locationX = locX;
                 locationY = locY;
-            }else
+            }
+            else
             {
                 Push(locX, locY);
             }
-            
-            
         }
 
         /// <summary>
-        /// Pushes wall 
+        /// Pushes wall
         /// </summary>
         /// <param name="locX">The X-coordinate the player would be</param>
         /// <param name="locY">The Y-coordinate the player would be</param>
@@ -125,6 +123,7 @@ namespace TrollMaze
                             legalMove(locX, locY);
                         }
                         break;
+
                     case '<':
                         if (chars[locX - 1] != '#')
                         {
@@ -135,6 +134,7 @@ namespace TrollMaze
                             legalMove(locX, locY);
                         }
                         break;
+
                     case 'v':
                         chars2 = Maze.field[locY + 1].ToCharArray();
                         if (chars2[locX] != '#')
@@ -148,6 +148,7 @@ namespace TrollMaze
                             legalMove(locX, locY);
                         }
                         break;
+
                     case '^':
                         chars2 = Maze.field[locY - 1].ToCharArray();
 
@@ -163,7 +164,8 @@ namespace TrollMaze
                         }
                         break;
                 }
-            }catch (Exception) // If Player tries to get out of bounds
+            }
+            catch (Exception) // If Player tries to get out of bounds
             {
                 return;
             }
