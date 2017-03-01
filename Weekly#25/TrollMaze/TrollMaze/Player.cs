@@ -31,8 +31,6 @@ namespace TrollMaze
             {
                 x = rnd.Next(1, Maze.width);
                 y = rnd.Next(1, Maze.height);
-                //x = 3;
-                //y = 2;
             } while (Maze.field[y].ElementAt(x) != ' ');
 
             location[0] = x;
@@ -98,76 +96,50 @@ namespace TrollMaze
         }
 
         /// <summary>
-        /// Pushes wall
+        /// Pushes wall - Calls CanPush
         /// </summary>
         /// <param name="locX">The X-coordinate the player would be</param>
         /// <param name="locY">The Y-coordinate the player would be</param>
         private void Push(int locX, int locY)
         {
-            //TODO refactor Method
-            char[] chars;
-            char[] chars2;
-
-            chars = Maze.field[locY].ToCharArray();
-            try
+            switch (direction)
             {
-                switch (direction)
-                {
-                    case '>':
-                        if (chars[locX + 1] != '#')
-                        {
-                            chars[locX] = ' ';
-                            chars[locX + 1] = '#';
+                case '>':
+                    if (Maze.GetCell(locX + 1, locY) != '#')
+                    {
+                        Maze.SetCell(locX, locY, ' ');
+                        Maze.SetCell(locX + 1, locY, '#');
+                        legalMove(locX, locY);
+                    }
+                    break;
 
-                            Maze.field[locY] = new String(chars);
-                            legalMove(locX, locY);
-                        }
-                        break;
+                case '<':
+                    if (Maze.GetCell(locX - 1, locY) != '#')
+                    {
+                        Maze.SetCell(locX, locY, ' ');
+                        Maze.SetCell(locX - 1, locY, '#');
+                        legalMove(locX, locY);
+                    }
+                    break;
 
-                    case '<':
-                        if (chars[locX - 1] != '#')
-                        {
-                            chars[locX] = ' ';
-                            chars[locX - 1] = '#';
+                case 'v':
+                    if (Maze.GetCell(locX, locY + 1) != '#')
+                    {
+                        Maze.SetCell(locX, locY, ' ');
+                        Maze.SetCell(locX, locY + 1, '#');
+                        legalMove(locX, locY);
+                    }
+                    break;
 
-                            Maze.field[locY] = new String(chars);
-                            legalMove(locX, locY);
-                        }
-                        break;
+                case '^':
 
-                    case 'v':
-                        chars2 = Maze.field[locY + 1].ToCharArray();
-                        if (chars2[locX] != '#')
-                        {
-                            chars[locX] = ' ';
-                            chars2[locX] = '#';
-
-                            Maze.field[locY] = new string(chars);
-                            Maze.field[locY + 1] = new String(chars2);
-
-                            legalMove(locX, locY);
-                        }
-                        break;
-
-                    case '^':
-                        chars2 = Maze.field[locY - 1].ToCharArray();
-
-                        if (chars2[locX] != '#')
-                        {
-                            chars[locX] = ' ';
-                            chars2[locX] = '#';
-
-                            Maze.field[locY] = new string(chars);
-                            Maze.field[locY - 1] = new String(chars2);
-
-                            legalMove(locX, locY);
-                        }
-                        break;
-                }
-            }
-            catch (Exception) // If Player tries to get out of bounds
-            {
-                return;
+                    if (Maze.GetCell(locX, locY - 1) != '#')
+                    {
+                        Maze.SetCell(locX, locY, ' ');
+                        Maze.SetCell(locX, locY - 1, '#');
+                        legalMove(locX, locY);
+                    }
+                    break;
             }
         }
     }
