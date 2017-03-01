@@ -17,7 +17,7 @@ namespace TrollMaze
             {
                 coordX = rnd.Next(0, Maze.width);
                 coordY = rnd.Next(0, Maze.height);
-            } while ((Maze.field[coordY].ElementAt(coordX) != ' '));
+            } while ((Maze.GetCell(coordX, coordY) != ' '));
         }
 
         /// <summary>
@@ -27,13 +27,13 @@ namespace TrollMaze
         /// <param name="targetY">Y-Coordinate of the player</param>
         public void Move(int targetX, int targetY)
         {
-            if (targetX == coordX && targetY == coordY)
-            {
-                Draw.mazeExited = true;
-            }
             if (isKilled())
             {
                 return;
+            }
+            if (targetX == coordX && targetY == coordY)
+            {
+                Draw.mazeExited = true;
             }
             else
             {
