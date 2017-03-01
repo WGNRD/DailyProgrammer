@@ -31,13 +31,14 @@ namespace TrollMaze
                     trl.Move(plyr.locationX, plyr.locationY);
                 }
 
+
+                Console.Clear();
                 Draw.DrawMazeLimitedSight(plyr, trls, 5);
 
                 pressed = Console.ReadKey().Key;
 
                 plyr.Move(pressed);
 
-                Console.Clear();
             } while (!Draw.mazeExited);
 
             Console.WriteLine("Fin");
