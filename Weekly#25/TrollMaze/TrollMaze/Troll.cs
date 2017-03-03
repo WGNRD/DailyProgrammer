@@ -9,15 +9,17 @@ namespace TrollMaze
         public int coordX { get; set; }
         public int coordY { get; set; }
         public char representation { get; set; }
+        public bool alive { get; set; }
 
         public Troll(Player plyr, Random rnd)
         {
             representation = '@';
+            alive = true;
             do
             {
                 coordX = rnd.Next(0, Maze.width);
                 coordY = rnd.Next(0, Maze.height);
-            } while ((Maze.GetCell(coordX, coordY) != ' '));
+            } while ((Maze.GetCell(coordX, coordY) != ' ') || (coordX == plyr.locationX || coordY == plyr.locationY));
         }
 
         /// <summary>
@@ -27,10 +29,11 @@ namespace TrollMaze
         /// <param name="targetY">Y-Coordinate of the player</param>
         public void Move(int targetX, int targetY)
         {
-            if (isKilled())
+            if (!alive)
             {
                 return;
             }
+            isKilled();
             if (targetX == coordX && targetY == coordY)
             {
                 Draw.mazeExited = true;
@@ -151,15 +154,14 @@ namespace TrollMaze
         /// <returns>true if troll is killed</returns>
         public bool isKilled()
         {
-            var killed = false;
 
-            if (Maze.field[coordY].ElementAt(coordX) == '#')
+            if (Maze.GetCell(coordX, coordY)== '#')
             {
                 representation = '%';
-                killed = true;
+                alive = false;
             }
 
-            return killed;
+            return alive;
         }
     }
 }
