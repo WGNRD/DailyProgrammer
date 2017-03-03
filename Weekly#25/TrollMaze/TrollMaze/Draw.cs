@@ -77,28 +77,12 @@ namespace TrollMaze
         /// <summary>
         /// Draws Maze with player and a list of Trolls on it
         /// </summary>
-        /// <param name="mz"></param>
         /// <param name="plyr"></param>
         /// <param name="trls"></param>
         public static void DrawMaze(Player plyr, List<Troll> trls)
         {
-            List<String> tempmz = new List<string>();
-            char[] chars = null;
-
-            tempmz.AddRange(Maze.field);
-
-            // var mytrls = trls.OrderBy(t => t.coordY);
-
-            chars = tempmz[plyr.locationY].ToCharArray();
-            chars[plyr.locationX] = plyr.direction;
-            tempmz[plyr.locationY] = new string(chars);
-
-            foreach (Troll trl in trls)
-            {
-                chars = tempmz[trl.coordY].ToCharArray();
-                chars[trl.coordX] = trl.representation;
-                tempmz[trl.coordY] = new string(chars);
-            }
+            // Working with a copy of the maze, to place the figures on
+            List<String> tempmz = placeFigures(plyr, trls);
 
             foreach (String line in tempmz)
             {
@@ -108,37 +92,24 @@ namespace TrollMaze
 
         public static void DrawMazeLimitedSight(Player plyr, List<Troll> trls, int playerSight)
         {
-            List<String> tempmz = new List<string>();
-            char[] chars = null;
+            char[] chars;
+            List<String> tempmz = placeFigures(plyr, trls);
 
-            tempmz.AddRange(Maze.field);
-
-            // var mytrls = trls.OrderBy(t => t.coordY);
-
-            chars = tempmz[plyr.locationY].ToCharArray();
-            chars[plyr.locationX] = plyr.direction;
-            tempmz[plyr.locationY] = new string(chars);
-
-            foreach (Troll trl in trls)
-            {
-                chars = tempmz[trl.coordY].ToCharArray();
-                chars[trl.coordX] = trl.representation;
-                tempmz[trl.coordY] = new string(chars);
-            }
-            // +/- 3 Lines and Rows
-
+            // Go through every line
             for (int lineIndex = 0; lineIndex < Maze.height; lineIndex++)
             {
                 chars = tempmz[lineIndex].ToCharArray();
-
+                //Go through every row
                 for (int rowIndex = 0; rowIndex < Maze.width; rowIndex++)
                 {
+                    // If the row is not in the player sight, set it to space
                     if (rowIndex >= plyr.locationX + playerSight || rowIndex <= plyr.locationX - playerSight)
                     {
                         chars[rowIndex] = ' ';
                     }
                 }
                 tempmz[lineIndex] = new string(chars);
+
                 // Cut out all the lines
                 if (lineIndex >= plyr.locationY + playerSight || lineIndex <= plyr.locationY - playerSight)
                 {
@@ -150,6 +121,27 @@ namespace TrollMaze
             {
                 Console.WriteLine(line);
             }
+        }
+
+        private static List<String> placeFigures(Player plyr, List<Troll> trls)
+        {
+            List<String> tempmz = new List<string>();
+            char[] chars = null;
+
+            tempmz.AddRange(Maze.field);
+
+            chars = tempmz[plyr.locationY].ToCharArray();
+            chars[plyr.locationX] = plyr.direction;
+            tempmz[plyr.locationY] = new string(chars);
+
+            foreach (Troll trl in trls)
+            {
+                chars = tempmz[trl.coordY].ToCharArray();
+                chars[trl.coordX] = trl.representation;
+                tempmz[trl.coordY] = new string(chars);
+            }
+
+            return tempmz;
         }
     }
 }
